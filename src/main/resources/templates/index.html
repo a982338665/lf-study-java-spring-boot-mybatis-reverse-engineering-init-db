@@ -1,0 +1,322 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>商品列表</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!-- jquery -->
+    <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+    <!-- bootstrap -->
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap/css/bootstrap.min.css}" />
+    <script type="text/javascript" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+    <!-- jquery-validator -->
+    <script type="text/javascript" th:src="@{/jquery-validation/jquery.validate.min.js}"></script>
+    <script type="text/javascript" th:src="@{/jquery-validation/localization/messages_zh.min.js}"></script>
+    <!-- layer -->
+    <script type="text/javascript" th:src="@{/layer/layer.js}"></script>
+    <!-- md5.js -->
+    <script type="text/javascript" th:src="@{/js/md5.min.js}"></script>
+    <!-- common.js -->
+    <script type="text/javascript" th:src="@{/js/common.js}"></script>
+
+</head>
+<body>
+<form name="submitForm" id="submitForm" method="post"  style="width:50%; margin:0 auto" action="/manager/save/info" autocomplete="off">
+
+    <h2 style="text-align:center; margin-bottom: 20px">添加服务</h2>
+
+    <div class="form-group">
+        <div class="row">
+            <label class="form-label col-md-4">请选择环境类型</label>
+            <div class="col-md-5">
+                <input type="hidden" id="envType" name="envType" value="0"/>
+                <select class="selectpicker show-tick form-control" data-live-search="true" id="envirType">
+                    <option id="dev"  value="0">测试环境</option>
+                    <option id=""  value="1">正式环境</option>
+                </select>
+            </div>
+            <div class="col-md-1">
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <label class="form-label col-md-4">请选择服务类型</label>
+            <div class="col-md-5">
+                <input type="hidden" id="serviceType" name="serviceType" value="05"/>
+                <select class="selectpicker show-tick form-control" data-live-search="true" id="serverType">
+                    <option id="menzhen"  value="05">远程门诊</option>
+                    <option id="mianzhen"  value="06">预约面诊</option>
+                    <option id="shoushu" value="07">预约手术</option>
+                </select>
+            </div>
+            <div class="col-md-1">
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+            <label class="form-label col-md-4">请输入预约总数</label>
+            <div class="col-md-5">
+                <input id="totalSeat" name = "totalSeat" class="form-control" type="number" placeholder="总数必填" required="true"
+                />
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <label class="form-label col-md-4">请输入预约价格</label>
+            <div class="col-md-5">
+                <input id="price" name = "price" class="form-control" type="number" placeholder="价格必填" required="true"
+                />
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <label class="form-label col-md-4">请输入医生姓名</label>
+            <div class="col-md-5">
+                <input id="doctor" name = "doctor" class="form-control" type="text" placeholder="姓名必填" required="true" list="doctorIde"/>
+                <datalist id="doctorIde">
+                    <!--<option value="Brackets" />-->
+                </datalist>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <label class="form-label col-md-4">请输入就诊医院</label>
+            <div class="col-md-5">
+                <input id="hospital" name = "hospital" class="form-control"  type="text" placeholder="医院必填" required="true"  list="ide"
+                />
+                <datalist id="ide">
+                    <!--<option value="Brackets" />-->
+                </datalist>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <label class="form-label col-md-4">请选择就诊科室</label>
+            <div class="col-md-5">
+                <input id="hospitalDept" name = "hospitalDept" class="form-control" type="text" placeholder="填写医院后选择科室"
+                       required="true" list="deptIde"  readonly="readonly"
+                />
+                <datalist id="deptIde">
+                    <!--<option value="Brackets" />-->
+                </datalist>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <label class="form-label col-md-4">请输入开始时间</label>
+            <div class="col-md-5">
+                <input id="startTime" name = "startTime" class="form-control" type="text" placeholder="开始时间必填:格式yyyymmdd" required="true"
+                />
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <label class="form-label col-md-4">请输入结束时间</label>
+            <div class="col-md-5">
+                <input id="endTime" name = "endTime" class="form-control" type="text" placeholder="结束时间必填:格式yyyymmdd" required="true"
+                />
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-5">
+            <button class="btn btn-primary btn-block" type="reset" id="reset"  onclick="reset()">重置</button>
+
+        </div>
+        <div class="col-md-5">
+            <button class="btn btn-primary btn-block" type="submit" >添加</button>
+        </div>
+    </div>
+    <input id="addStatus" type="hidden" th:value="${code}" />
+    <input id="addStatusName" type="hidden" th:value="${msg}"/>
+</form>
+</body>
+<script>
+
+    $(document).ready(function() {
+        $("#serverType").change(function() { SelectChange(); });
+        $("#envirType").change(function() { SelectenvirTypeChange(); });
+//        $("#doctor").change(function() { ajaxdoctor(); });
+        $('#doctor').on('compositionend',function(){
+            ajaxdoctor();
+        });
+        $('#hospital').on('compositionend',function(){
+            ajaxhospital();
+        });
+        $('#hospitalDept').on('compositionend',function(){
+            ajaxdept();
+        });
+//        $("#hospital").change(function() { ajaxhospital(); });
+
+    })
+
+    $('#hospital').bind('input propertychange', function() {
+        var a = $('#hospital').val();
+        var id=a.split("_")[0];
+        if(isNumber(id)){
+            ajaxdept(id);
+        }
+    });
+    /* <![CDATA[ */
+    var a = $('#addStatus').val();
+    if(a!=null&&a!=""&&a!="-1"){
+        alert($('#addStatusName').val());
+        var a = $('#addStatus').val("-1");
+        $("#reset").trigger("click");
+    }else{
+
+    }
+    /* ]]> */
+
+   /* <![CDATA[
+    $('#addStatus').bind('input propertychange', function() {
+        var a = $('#addStatus').val();
+        if(a!=null&&a!=""){
+            alert($('#addStatusName').val());
+        }
+    });
+    ]]>*/
+    function isNumber(val) {
+        var regPos = /^\d+(\.\d+)?$/; //非负浮点数
+        var regNeg = /^(-(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*)))$/; //负浮点数
+        if(regPos.test(val) || regNeg.test(val)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function ajaxdept(id) {
+       /* var hospital=$("#hospital").val();
+        if(hospital==null||hospital==""){
+            alert("请先选择就诊医院！")
+            $("#hospitalDept").val("")
+            return;
+        }*/
+        $.ajax({
+            url: "/manager/select/dept",
+            type: "GET",
+            dataType:'json',
+            headers: {
+                "Content-Type": "application/json;charset=utf-8"
+            },
+            contentType:'application/json; charset=utf-8',
+            data:{
+                hospital:id,
+                envType:$("#envType").val()
+            },
+            success:function(data){
+                layer.closeAll();
+                $("#deptIde").empty();
+                if(data.length==0){
+                    $('#hospitalDept').val("");
+                    alert("此医院下暂无科室！请添加科室")
+                }else {
+                    //必须加注释部分，否则无法识别for
+                    /* <![CDATA[ */
+                    for (var i = 0; i < data.length; i++) {
+                        $("#deptIde").append('<option value="' + data[i] + '"/>');
+                    }
+                    /* ]]> */
+                }
+            },
+            error:function(){
+                layer.closeAll();
+            }
+        });
+    }
+    function ajaxhospital() {
+        $.ajax({
+            url: "/manager/select/hospital",
+            type: "GET",
+            dataType:'json',
+            headers: {
+                "Content-Type": "application/json;charset=utf-8"
+            },
+            contentType:'application/json; charset=utf-8',
+            data:{
+                hospital:$("#hospital").val(),
+                envType:$("#envType").val()
+            },
+            success:function(data){
+                layer.closeAll();
+                $("#ide").empty();
+                $("#hospitalDept").removeAttr("readonly");
+                if(data.length==0){
+                    $('#hospital').val("");
+                    $('#hospital').attr("placeholder","无此医院，请核对！");
+                }else {
+                    //必须加注释部分，否则无法识别for
+                    /* <![CDATA[ */
+                    for (var i = 0; i < data.length; i++) {
+                        $("#ide").append('<option value="' + data[i] + '"/>');
+                    }
+                    /* ]]> */
+                    //获取医院科室
+                }
+//                $("#hospitalDept").attr("readonly","readonly");
+            },
+            error:function(){
+                layer.closeAll();
+            }
+        });
+    }
+    function SelectChange() {
+        var selectValue = $("#serverType").val();
+//        alert(selectValue)
+        $("#serviceType").val(selectValue);
+    }
+    function SelectenvirTypeChange() {
+        var selectValue = $("#envirType").val();
+//        alert(selectValue)
+        $("#envType").val(selectValue);
+    }
+    function ajaxdoctor() {
+        $.ajax({
+            url: "/manager/select/doctor",
+            type: "GET",
+            dataType:'json',
+            headers: {
+                "Content-Type": "application/json;charset=utf-8"
+            },
+            contentType:'application/json; charset=utf-8',
+            data:{
+                doctor:$("#doctor").val(),
+                envType:$("#envType").val(),
+            },
+            success:function(data){
+                layer.closeAll();
+                $("#doctorIde").empty();
+                if(data.length==0){
+                    $('#doctor').val("");
+                    $('#doctor').attr("placeholder","无此医生，请核对姓名！");
+                }else {
+                    //必须加注释部分，否则无法识别for
+                    /* <![CDATA[ */
+                    for (var i = 0; i < data.length; i++) {
+                        var doctor =
+                            data[0].split(" ")[0] + "_" +
+                            data[0].split(" ")[1] + "_" +
+                            data[0].split(" ")[2] +
+                            data[0].split(" ")[3];
+                        $("#doctorIde").append('<option value="' + doctor + '"/>');
+                    }
+                    /* ]]> */
+                }
+            },
+            error:function(){
+                layer.closeAll();
+            }
+        });
+    }
+</script>
+</html>

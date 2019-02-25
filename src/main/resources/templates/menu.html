@@ -1,0 +1,129 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>商品列表</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!-- jquery -->
+    <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+    <!-- bootstrap -->
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap/css/bootstrap.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap/css/undifine.css}" />
+    <script type="text/javascript" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+    <!-- jquery-validator -->
+    <script type="text/javascript" th:src="@{/jquery-validation/jquery.validate.min.js}"></script>
+    <script type="text/javascript" th:src="@{/jquery-validation/localization/messages_zh.min.js}"></script>
+    <!-- layer -->
+    <script type="text/javascript" th:src="@{/layer/layer.js}"></script>
+    <!-- md5.js -->
+    <script type="text/javascript" th:src="@{/js/md5.min.js}"></script>
+    <!-- common.js -->
+    <script type="text/javascript" th:src="@{/js/common.js}"></script>
+</head>
+<body>
+
+<!--<div class="panel panel-default">
+    <div class="panel-heading" th:text="'菜单列表:'+${user.nickname}"></div>
+    <table class="table" id="goodslist">
+        <tr><td>菜单名称</td><td>菜单图片</td><td>菜单路径</td></tr>
+        <tr  th:each="goods,goodsStat : ${menuList}">
+            <td th:text="${goods.name}"></td>
+            <td th:text="${goods.cron}"></td>
+            <td><a th:href="${goods.url}">详情</a></td>
+        </tr>
+    </table>
+</div>-->
+<div class="navbar navbar-duomi navbar-static-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#" id="logo"><p th:text="'中益久康管理系统：【'+${user.nickname}+'】'"></p>
+            </a>
+        </div>
+        <div class="navbar-header" style="float: right">
+            <a class="navbar-brand"  href="/login/index" id="exit"><p th:text="'注销'"></p>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            <ul id="main-nav" class="nav nav-tabs nav-stacked" style=""  th:each="goods,goodsStat : ${menuList}">
+                <li class="active">
+                    <a th:href="${goods.url}">
+                        <i class="glyphicon glyphicon-th-large"></i>
+                        <i th:text="${goods.name}"></i>
+                    </a>
+                </li>
+
+<!--
+                <li class="active">
+                    <a href="#">
+                        <i class="glyphicon glyphicon-th-large"></i>
+                        首页
+                    </a>
+                </li>
+-->
+              <!--  <li>
+                    <a href="#systemSetting" class="nav-header collapsed" data-toggle="collapse">
+                        <i class="glyphicon glyphicon-cog"></i>
+                        服务管理
+                        <span class="pull-right glyphicon glyphicon-chevron-down"></span>
+                    </a>
+                    <ul id="systemSetting" class="nav nav-list collapse secondmenu" style="height: 0px;">
+
+                        <li><a href="#"><i class="glyphicon glyphicon-user"></i>用户管理</a></li>
+                       &lt;!&ndash; <li><a href="#"><i class="glyphicon glyphicon-th-list"></i>菜单管理</a></li>
+                        <li><a href="#"><i class="glyphicon glyphicon-asterisk"></i>角色管理</a></li>
+                        <li><a href="#"><i class="glyphicon glyphicon-edit"></i>修改密码</a></li>
+                        <li><a href="#"><i class="glyphicon glyphicon-eye-open"></i>日志查看</a></li>&ndash;&gt;
+                    </ul>
+                </li>
+                <li>
+                    <a href="#systemSetting" class="nav-header collapsed" data-toggle="collapse">
+                        <i class="glyphicon glyphicon-cog"></i>
+                        系统管理
+                        <span class="pull-right glyphicon glyphicon-chevron-down"></span>
+                    </a>
+                    <ul id="systemSetting" class="nav nav-list collapse secondmenu" style="height: 0px;">
+                        <li><a href="#"><i class="glyphicon glyphicon-user"></i>用户管理</a></li>
+                        <li><a href="#"><i class="glyphicon glyphicon-th-list"></i>菜单管理</a></li>
+                        <li><a href="#"><i class="glyphicon glyphicon-asterisk"></i>角色管理</a></li>
+                        <li><a href="#"><i class="glyphicon glyphicon-edit"></i>修改密码</a></li>
+                        <li><a href="#"><i class="glyphicon glyphicon-eye-open"></i>日志查看</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="./plans.html">
+                        <i class="glyphicon glyphicon-credit-card"></i>
+                        物料管理
+                    </a>
+                </li>
+                <li>
+                    <a href="./grid.html">
+                        <i class="glyphicon glyphicon-globe"></i>
+                        分发配置
+                        <span class="label label-warning pull-right">5</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="./charts.html">
+                        <i class="glyphicon glyphicon-calendar"></i>
+                        图表统计
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="glyphicon glyphicon-fire"></i>
+                        关于系统
+                    </a>
+                </li>-->
+            </ul>
+        </div>
+        <!--<div class="col-md-10">-->
+            <!--<iframe src="index.html" id="sub_frame"></iframe>-->
+        <!--</div>-->
+    </div>
+</div>
+
+</body>
+</html>

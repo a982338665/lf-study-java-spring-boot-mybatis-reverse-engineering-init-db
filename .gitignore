@@ -1,0 +1,10 @@
+/.idea
+**/target/
+*.ipr
+*.iws
+*/out/
+.idea
+*.1iml
+*.log
+*.bak
+**/logs/
