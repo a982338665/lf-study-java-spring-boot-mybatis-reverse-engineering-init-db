@@ -1,7 +1,6 @@
 package pers.li.aseckill.config.db;
 
 
-import groovy.util.logging.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -34,9 +33,11 @@ public class BatchTaskDataSourceInitializer {
     @Value("classpath:data.sql")
     private Resource businessScript;
     @Value("classpath:db/schema.sql")
-    private Resource dbdataScript;
-    @Value("classpath:db/data.sql")
     private Resource dbschemaScript;
+    @Value("classpath:db/data.sql")
+    private Resource dbdataScript;
+    @Value("${is.or.not.import.database.data}")
+    private Integer isImport;
 
     @javax.annotation.Resource
     private  ApplicationContext applicationContext;
@@ -63,7 +64,13 @@ public class BatchTaskDataSourceInitializer {
 
     private DatabasePopulator databasePopulator() {
         final ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
-        populator.addScripts(businessScript,dbdataScript,dbschemaScript);
+        if(1==isImport){
+//            populator.addScripts(businessScript,dbdataScript,dbschemaScript);
+            populator.addScripts(dbschemaScript);
+            log.error(isImport+"|导入初始数据");
+        }else{
+            log.error(isImport+"|放弃导入初始数据");
+        }
         return populator;
     }
 }
